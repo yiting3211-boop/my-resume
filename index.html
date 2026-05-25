@@ -18,10 +18,43 @@
             --radius:14px;
         }
         *{box-sizing:border-box}
+        html{scroll-behavior:smooth}
         html,body{height:100%}
         body{
             font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;
             margin:0;padding:0;color:var(--text);background-color:#f6f8fb;position:relative;overflow-x:hidden;
+        }
+        .top-toc{
+            position:sticky;top:0;left:0;right:0;z-index:50;
+            margin:0 auto;
+            backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+            background:rgba(255,255,255,0.78);
+            border-bottom:1px solid rgba(255,255,255,0.85);
+            box-shadow:0 12px 30px rgba(6,18,40,0.08);
+        }
+        .top-toc .toc-inner{
+            display:flex;align-items:center;gap:10px;overflow-x:auto;scroll-behavior:smooth;
+            padding:10px 20px;
+        }
+        .top-toc .toc-inner a{
+            white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;
+            padding:10px 16px;border-radius:999px;
+            background:rgba(255,255,255,0.72);
+            border:1px solid rgba(255,255,255,0.9);
+            color:var(--text);text-decoration:none;font-size:14px;flex-shrink:0;
+            transition:background .2s ease,color .2s ease,box-shadow .2s ease;
+        }
+        .top-toc .toc-inner a:hover,
+        .top-toc .toc-inner a:focus-visible{
+            background:rgba(10,132,255,0.14);
+            color:var(--accent1);
+            box-shadow:0 10px 20px rgba(10,132,255,0.08);
+        }
+        .top-toc .toc-inner::-webkit-scrollbar{height:8px}
+        .top-toc .toc-inner::-webkit-scrollbar-thumb{background:rgba(10,132,255,0.2);border-radius:999px}
+        .top-toc .toc-inner::-webkit-scrollbar-track{background:transparent}
+        @media (max-width:600px){
+            .top-toc .toc-inner{padding:8px 12px;gap:8px}
         }
         /* 背景光暈使用 pseudo-elements 並以 transform 動畫移動，效能較佳 */
         body:before,body:after{content:"";position:fixed;inset:-20% -20% auto -20%;pointer-events:none;z-index:-1;filter:blur(80px);opacity:0.9}
@@ -92,6 +125,18 @@
 </head>
 <body>
 
+<nav class="top-toc" aria-label="頁面快速導覽">
+    <div class="toc-inner">
+        <a href="#about">關於</a>
+        <a href="#skills">技能</a>
+        <a href="#education">學歷</a>
+        <a href="#experience">經歷</a>
+        <a href="#awards">獎項</a>
+        <a href="#projects">作品</a>
+        <a href="#contact">聯絡</a>
+    </div>
+</nav>
+
 <header>
     <h1>我的作品集</h1>
     <p>歡迎來到我的個人履歷型作品集網站。</p>
@@ -123,9 +168,55 @@
 
 <section id="skills">
     <h2>技能</h2>
-    <p>程式語言：Python、JavaScript、SQL</p>
-    <p>框架與工具：TensorFlow、PyTorch、React、Node.js、Docker、Git</p>
-    <p>軟實力：問題拆解、跨團隊溝通、專案管理</p>
+    <div class="skill-group">
+        <h3>💻 程式</h3>
+        <div class="tags">
+            <span class="tag">Swift（熟練）</span>
+            <span class="tag">Python（熟練）</span>
+            <span class="tag">SQL（熟練）</span>
+            <span class="tag">JavaScript（會用）</span>
+            <span class="tag">HTML/CSS（會用）</span>
+        </div>
+    </div>
+    <div class="skill-group">
+        <h3>🤖 AI 協作工具</h3>
+        <div class="tags">
+            <span class="tag">GitHub Copilot（熟練）</span>
+            <span class="tag">ChatGPT（熟練）</span>
+            <span class="tag">Gemini（會用）</span>
+            <span class="tag">Prompt engineering（熟練）</span>
+            <span class="tag">Notion AI（會用）</span>
+        </div>
+    </div>
+    <div class="skill-group">
+        <h3>📊 專案管理</h3>
+        <div class="tags">
+            <span class="tag">GitHub 專案控管（熟練）</span>
+            <span class="tag">版本控制 Git（熟練）</span>
+            <span class="tag">敏捷看板（會用）</span>
+            <span class="tag">spec-driven coding（熟練）</span>
+            <span class="tag">CI/CD 基礎（會用）</span>
+        </div>
+    </div>
+    <div class="skill-group">
+        <h3>🏢 語言</h3>
+        <div class="tags">
+            <span class="tag">中文（母語）</span>
+            <span class="tag">英文（工作級）</span>
+            <span class="tag">台語（會話）</span>
+            <span class="tag">技術英文閱讀（熟練）</span>
+        </div>
+    </div>
+    <div class="skill-group">
+        <h3>🌱 軟實力</h3>
+        <div class="tags">
+            <span class="tag">自主學習</span>
+            <span class="tag">跨域溝通</span>
+            <span class="tag">校外服務志工</span>
+            <span class="tag">專案實作力</span>
+            <span class="tag">快速迭代</span>
+        </div>
+    </div>
 </section>
 
 <section id="education">
@@ -136,9 +227,33 @@
 
 <section id="experience">
     <h2>經歷</h2>
-    <p>AI 實習生 @ TechCorp AI Lab（2025.03 - 現在）：開發影像分類模型，準確度提升 15%，優化推理效能降低資源消耗 40%。</p>
-    <p>全端開發實習生 @ StartupXYZ（2024.06 - 2024.12）：使用 React + Node.js 建置 SaaS 平台，CI/CD 自動化後上線時間減少 50%。</p>
-    <p>數據分析實習生 @ FinanceOne（2023.07 - 2024.05）：分析百萬筆交易資料，開發自動化報表，節省團隊 20 小時／週。</p>
+    <div class="experience-item">
+        <h3>AI 實習生 @ TechCorp AI Lab（2025.03 - 現在）</h3>
+        <ul>
+            <li>建立影像分類模型，將準確度從 78% 提升到 93%，提高 15 個百分點。</li>
+            <li>優化推理流程，降低 40% GPU 資源消耗，支援 3 種部署類型。</li>
+            <li>整合 8 組標註資料集，縮短模型迭代週期到 10 天。</li>
+            <li>與 4 人跨域團隊協作，完成每週 2 次 sprint review。</li>
+        </ul>
+    </div>
+    <div class="experience-item">
+        <h3>全端開發實習生 @ StartupXYZ（2024.06 - 2024.12）</h3>
+        <ul>
+            <li>開發 React + Node.js SaaS 平台，完成 6 個主要功能頁面。</li>
+            <li>建立 CI/CD 自動化部署，將上線時間縮短 50%。</li>
+            <li>撰寫 120+ 個 unit tests，提升發布穩定性與回歸測試效率。</li>
+            <li>負責 1 次版本釋出計畫，協調前後端與 QA 流程。</li>
+        </ul>
+    </div>
+    <div class="experience-item">
+        <h3>數據分析實習生 @ FinanceOne（2023.07 - 2024.05）</h3>
+        <ul>
+            <li>分析 100 萬筆交易資料，找出 3 個主要異常模式。</li>
+            <li>開發自動化報表，讓月報製作時間從 2 天縮短到 4 小時。</li>
+            <li>設計 5 個儀表板視覺，提升團隊決策速度 30%。</li>
+            <li>支援 2 個跨部門專案，提供資料洞察與模型輸出。</li>
+        </ul>
+    </div>
 </section>
 
 <section id="awards">
